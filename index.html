@@ -1,305 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MobileHub - Find Your Perfect Phone</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        header {
-            background-color: #2c3e50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-        
-        .search-criteria {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .criteria-title {
-            font-size: 1.2rem;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
-        
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        background-color: #2c3e50;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      .search-criteria {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .criteria-title {
+        font-size: 1.2rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
+
+      .criteria-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .criteria-item {
+        margin-bottom: 1rem;
+      }
+
+      .criteria-item label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .criteria-item input[type="text"] {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: white;
+        font-size: 0.95rem;
+      }
+
+      .criteria-item input[type="text"]::placeholder {
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+
+      .search-button {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 1.5rem auto 0;
+        padding: 0.75rem 1.5rem;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .search-button:hover {
+        background-color: #2980b9;
+      }
+
+      .results-section {
+        margin-top: 2rem;
+      }
+
+      .results-title {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
+
+      .phone-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .phone-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .phone-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .phone-image {
+        height: 200px;
+        width: 100%;
+        object-fit: contain;
+        background-color: #f8f9fa;
+        padding: 1rem;
+      }
+
+      .phone-details {
+        padding: 1rem;
+      }
+
+      .phone-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2c3e50;
+      }
+
+      .phone-specs {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 0.5rem;
+      }
+
+      .phone-price {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 1rem 0;
+      }
+
+      .add-to-cart {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .add-to-cart:hover {
+        background-color: #219653;
+      }
+
+      @media (max-width: 768px) {
         .criteria-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+          grid-template-columns: 1fr;
         }
-        
-        .criteria-item {
-            margin-bottom: 1rem;
-        }
-        
-        .criteria-item label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #555;
-        }
-        
-        .criteria-item input[type="text"] {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: white;
-            font-size: 0.95rem;
-        }
-        
-        .criteria-item input[type="text"]::placeholder {
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-        
-        .search-button {
-            display: block;
-            width: 100%;
-            max-width: 200px;
-            margin: 1.5rem auto 0;
-            padding: 0.75rem 1.5rem;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .search-button:hover {
-            background-color: #2980b9;
-        }
-        
-        .results-section {
-            margin-top: 2rem;
-        }
-        
-        .results-title {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
-        
+
         .phone-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         }
-        
-        .phone-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .phone-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .phone-image {
-            height: 200px;
-            width: 100%;
-            object-fit: contain;
-            background-color: #f8f9fa;
-            padding: 1rem;
-        }
-        
-        .phone-details {
-            padding: 1rem;
-        }
-        
-        .phone-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
-        }
-        
-        .phone-specs {
-            font-size: 0.9rem;
-            color: #555;
-            margin-bottom: 0.5rem;
-        }
-        
-        .phone-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin: 1rem 0;
-        }
-        
-        .add-to-cart {
-            display: block;
-            width: 100%;
-            padding: 0.5rem;
-            background-color: #27ae60;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .add-to-cart:hover {
-            background-color: #219653;
-        }
-        
-        @media (max-width: 768px) {
-            .criteria-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .phone-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>MobileHub</h1>
-        <p>Find your perfect smartphone</p>
+      <h1>MobileHub</h1>
+      <p>Find your perfect smartphone</p>
     </header>
-    
+
     <div class="container">
-        <section class="search-criteria">
-            <h2 class="criteria-title">Find the perfect phone for your needs</h2>
-            <div class="criteria-grid">
-                <div class="criteria-item">
-                    <label for="usage-type">Usage Type</label>
-                    <input type="text" id="usage-type" placeholder="e.g. Business, Gaming, Photography">
-                </div>
-                
-                <div class="criteria-item">
-                    <label for="display-size">Desired Display Size</label>
-                    <input type="text" id="display-size" placeholder="e.g. 6.1 inches, Large">
-                </div>
-                
-                <div class="criteria-item">
-                    <label for="battery">Battery Requirements</label>
-                    <input type="text" id="battery" placeholder="e.g. 4000mAh, All-day">
-                </div>
-                
-                <div class="criteria-item">
-                    <label for="storage">Storage Requirements</label>
-                    <input type="text" id="storage" placeholder="e.g. 256GB, 1TB">
-                </div>
-                
-                <div class="criteria-item">
-                    <label for="service-package">Service Package Type</label>
-                    <input type="text" id="service-package" placeholder="e.g. Basic, Premium, Unlimited">
-                </div>
+      <section class="search-criteria" id="form">
+        <h2 class="criteria-title">Find the perfect phone for your needs</h2>
+        <div class="criteria-grid">
+          <div class="criteria-item">
+            <label for="usage-type">Usage Type</label>
+            <input
+              type="text"
+              id="usage-type"
+              placeholder="e.g. Business, Gaming, Photography"
+            />
+          </div>
+
+          <div class="criteria-item">
+            <label for="display-size">Desired Display Size</label>
+            <input
+              type="text"
+              id="display-size"
+              placeholder="e.g. 6.1 inches, Large"
+            />
+          </div>
+
+          <div class="criteria-item">
+            <label for="battery">Battery Requirements</label>
+            <input
+              type="text"
+              id="battery"
+              placeholder="e.g. 4000mAh, All-day"
+            />
+          </div>
+
+          <div class="criteria-item">
+            <label for="storage">Storage Requirements</label>
+            <input type="text" id="storage" placeholder="e.g. 256GB, 1TB" />
+          </div>
+
+          <div class="criteria-item">
+            <label for="service-package">Service Package Type</label>
+            <input
+              type="text"
+              id="service-package"
+              placeholder="e.g. Basic, Premium, Unlimited"
+            />
+          </div>
+        </div>
+
+        <button class="search-button" onclick="showRecommendations()">
+          Find Phones
+        </button>
+      </section>
+
+      <section class="results-section">
+        <h2 class="results-title" id="header">Available Phone Models</h2>
+        <div class="phone-grid">
+          <div class="phone-card hidden">
+            <img
+              src="/api/placeholder/400/320"
+              alt="iPhone 16 Pro"
+              class="phone-image"
+            />
+            <div class="phone-details">
+              <h3 class="phone-name">iPhone 16 Pro</h3>
+              <p class="phone-specs">6.1" Super Retina XDR, A18 Pro chip</p>
+              <p class="phone-specs">8GB RAM, 256GB Storage</p>
+              <p class="phone-specs">48MP Main Camera, 4323mAh Battery</p>
+              <p class="phone-price">$999.00</p>
+              <button class="add-to-cart">Add to Cart</button>
             </div>
-            
-            <button class="search-button">Find Phones</button>
-        </section>
-        
-        <section class="results-section">
-            <h2 class="results-title">Available Phone Models</h2>
-            <div class="phone-grid">
-                <div class="phone-card">
-                    <img src="/api/placeholder/400/320" alt="iPhone 16 Pro" class="phone-image">
-                    <div class="phone-details">
-                        <h3 class="phone-name">iPhone 16 Pro</h3>
-                        <p class="phone-specs">6.1" Super Retina XDR, A18 Pro chip</p>
-                        <p class="phone-specs">8GB RAM, 256GB Storage</p>
-                        <p class="phone-specs">48MP Main Camera, 4323mAh Battery</p>
-                        <p class="phone-price">$999.00</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="phone-card">
-                    <img src="/api/placeholder/400/320" alt="Samsung Galaxy S24 Ultra" class="phone-image">
-                    <div class="phone-details">
-                        <h3 class="phone-name">Samsung Galaxy S24 Ultra</h3>
-                        <p class="phone-specs">6.8" Dynamic AMOLED 2X, Snapdragon 8 Gen 3</p>
-                        <p class="phone-specs">12GB RAM, 512GB Storage</p>
-                        <p class="phone-specs">200MP Main Camera, 5000mAh Battery</p>
-                        <p class="phone-price">$1,299.99</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="phone-card">
-                    <img src="/api/placeholder/400/320" alt="Google Pixel 9 Pro" class="phone-image">
-                    <div class="phone-details">
-                        <h3 class="phone-name">Google Pixel 9 Pro</h3>
-                        <p class="phone-specs">6.3" LTPO OLED, Google Tensor G4</p>
-                        <p class="phone-specs">16GB RAM, 256GB Storage</p>
-                        <p class="phone-specs">50MP Main Camera, 4700mAh Battery</p>
-                        <p class="phone-price">$999.00</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="phone-card">
-                    <img src="/api/placeholder/400/320" alt="OnePlus 13 Pro" class="phone-image">
-                    <div class="phone-details">
-                        <h3 class="phone-name">OnePlus 13 Pro</h3>
-                        <p class="phone-specs">6.7" Fluid AMOLED, Snapdragon 8 Gen 3</p>
-                        <p class="phone-specs">16GB RAM, 512GB Storage</p>
-                        <p class="phone-specs">50MP Main Camera, 5400mAh Battery</p>
-                        <p class="phone-price">$899.00</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="phone-card">
-                    <img src="/api/placeholder/400/320" alt="Xiaomi 15 Ultra" class="phone-image">
-                    <div class="phone-details">
-                        <h3 class="phone-name">Xiaomi 15 Ultra</h3>
-                        <p class="phone-specs">6.8" AMOLED, Snapdragon 8 Gen 3</p>
-                        <p class="phone-specs">16GB RAM, 512GB Storage</p>
-                        <p class="phone-specs">50MP Main Camera, 5500mAh Battery</p>
-                        <p class="phone-price">$849.00</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-                
-                <div class="phone-card">
-                    <img src="/api/placeholder/400/320" alt="Nothing Phone (3)" class="phone-image">
-                    <div class="phone-details">
-                        <h3 class="phone-name">Nothing Phone (3)</h3>
-                        <p class="phone-specs">6.5" OLED, Snapdragon 8 Gen 3</p>
-                        <p class="phone-specs">12GB RAM, 256GB Storage</p>
-                        <p class="phone-specs">50MP Main Camera, 4800mAh Battery</p>
-                        <p class="phone-price">$749.00</p>
-                        <button class="add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
+          </div>
+
+          <div class="phone-card hidden">
+            <img
+              src="/api/placeholder/400/320"
+              alt="Samsung Galaxy S24 Ultra"
+              class="phone-image"
+            />
+            <div class="phone-details">
+              <h3 class="phone-name">Samsung Galaxy S24 Ultra</h3>
+              <p class="phone-specs">
+                6.8" Dynamic AMOLED 2X, Snapdragon 8 Gen 3
+              </p>
+              <p class="phone-specs">12GB RAM, 512GB Storage</p>
+              <p class="phone-specs">200MP Main Camera, 5000mAh Battery</p>
+              <p class="phone-price">$1,299.99</p>
+              <button class="add-to-cart">Add to Cart</button>
             </div>
-        </section>
+          </div>
+
+          <div class="phone-card hidden">
+            <img
+              src="/api/placeholder/400/320"
+              alt="Google Pixel 9 Pro"
+              class="phone-image"
+            />
+            <div class="phone-details">
+              <h3 class="phone-name">Google Pixel 9 Pro</h3>
+              <p class="phone-specs">6.3" LTPO OLED, Google Tensor G4</p>
+              <p class="phone-specs">16GB RAM, 256GB Storage</p>
+              <p class="phone-specs">50MP Main Camera, 4700mAh Battery</p>
+              <p class="phone-price">$999.00</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <div class="phone-card hidden">
+            <img
+              src="/api/placeholder/400/320"
+              alt="OnePlus 13 Pro"
+              class="phone-image"
+            />
+            <div class="phone-details">
+              <h3 class="phone-name">OnePlus 13 Pro</h3>
+              <p class="phone-specs">6.7" Fluid AMOLED, Snapdragon 8 Gen 3</p>
+              <p class="phone-specs">16GB RAM, 512GB Storage</p>
+              <p class="phone-specs">50MP Main Camera, 5400mAh Battery</p>
+              <p class="phone-price">$899.00</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <img
+              src="/api/placeholder/400/320"
+              alt="Xiaomi 15 Ultra"
+              class="phone-image"
+            />
+            <div class="phone-details">
+              <h3 class="phone-name">Xiaomi 15 Ultra</h3>
+              <p class="phone-specs">6.8" AMOLED, Snapdragon 8 Gen 3</p>
+              <p class="phone-specs">16GB RAM, 512GB Storage</p>
+              <p class="phone-specs">50MP Main Camera, 5500mAh Battery</p>
+              <p class="phone-price">$849.00</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <img
+              src="/api/placeholder/400/320"
+              alt="Nothing Phone (3)"
+              class="phone-image"
+            />
+            <div class="phone-details">
+              <h3 class="phone-name">Nothing Phone (3)</h3>
+              <p class="phone-specs">6.5" OLED, Snapdragon 8 Gen 3</p>
+              <p class="phone-specs">12GB RAM, 256GB Storage</p>
+              <p class="phone-specs">50MP Main Camera, 4800mAh Battery</p>
+              <p class="phone-price">$749.00</p>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-</body>
+
+    <script>
+      function showRecommendations() {
+        document.getElementById("form").style.display = "none";
+        document.getElementById("header").innerText =
+          "Recommended Phone Models";
+        const hiddenPhones = Array.from(document.getElementsByClassName("hidden"));
+        hiddenPhones.forEach((phone) => {
+          phone.style.display = "none";
+        });
+      }
+    </script>
+  </body>
 </html>
